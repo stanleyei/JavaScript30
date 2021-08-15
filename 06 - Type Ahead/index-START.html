@@ -21,14 +21,21 @@
     </ul>
   </form>
   <script>
+    const getCityData = async () => {
+      let cityData;
+      try {
+        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+        const response = await fetch(endpoint);
+        console.log(response.ok);
+        cityData = await response.json();
+      } catch(err) {
+        console.error(err.message);
+      };
+      console.log(cityData);
+    };
 
-    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-    const cityData = [];
+    getCityData();
 
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(result => cityData.push(...result))
-      .catch(error => console.error('Error:', error.message));
 
     function findMatches(wordToMatch, cityData) {
       return cityData.filter(place => {
