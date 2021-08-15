@@ -21,7 +21,7 @@
     </ul>
   </form>
   <script>
-    const getCityData = async () => {
+    (async () => {
       let cityData = [];
 
       try {
@@ -47,10 +47,7 @@
 
         suggestions.innerHTML = matchHtml;
       });
-
-    };
-
-    getCityData();
+    })();
 
   </script>
 </body>
