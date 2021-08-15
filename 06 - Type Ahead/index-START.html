@@ -22,8 +22,10 @@
   </form>
   <script>
     (async () => {
+      //宣告放資料的變數
       let placeData = [];
 
+      //fetch取資料並放入placeData中
       try {
         const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
         const response = await fetch(endpoint);
@@ -33,16 +35,20 @@
         console.error(err.message);
       };
 
+      //宣告並綁定input及suggestions的DOM
       const search = document.querySelector('.search');
       const suggestions = document.querySelector('.suggestions');
 
+      //搜尋input的監聽事件
       search.addEventListener('input', function () {
 
+        //將placeData內的資料藉由input輸入的關鍵字篩選後放入matchArray成為新的陣列
         const matchArray = placeData.filter(place => {
           const regex = new RegExp(this.value, 'gi');
           return place.city.match(regex) || place.state.match(regex);
         });
 
+        //將matchArray內取出city、state、population的資料組成新陣列並轉化成字串
         const matchHtml = matchArray.map(place =>
           `<li>
             <span>${place.city}, ${place.state}</span>
@@ -50,10 +56,9 @@
           </li>`
         ).toString().replace(/,/g, "");
 
+        //將matchHtml字串放入Html中Render至畫面上
         suggestions.innerHTML = matchHtml;
-
       });
-
     })();
 
   </script>
