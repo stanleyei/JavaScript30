@@ -28,40 +28,42 @@
         const response = await fetch(endpoint);
         console.log(response.ok);
         cityData = await response.json();
-      } catch(err) {
+      } catch (err) {
         console.error(err.message);
       };
       console.log(cityData);
+
+      const search = document.querySelector('.search');
+      const suggestions = document.querySelector('.suggestions');
+
+      search.addEventListener('input', function () {
+        const matchArray = cityData.filter(place => place.city.indexOf(this.value) != -1 || place.state.indexOf(this.value) != -1);
+        suggestions.textContent = '';
+        console.log(matchArray);
+        const html = matchArray.forEach(place => {
+          const city = place.city;
+          const state = place.state;
+          const population = place.population;
+          return
+              `<li>
+                <span>${city}, ${state}</span>
+                <span>${population}</span>
+              </li>`;
+        });
+        
+        console.log(html);
+
+        // matchArray.forEach(data => {
+        //   suggestions.innerHTML +=
+        //     `<li>
+        //       <span>${data.city}, ${data.state}</span>
+        //       <span>${data.population}</span>
+        //     </li>`;
+        // });
+      });
     };
 
     getCityData();
-
-
-    function findMatches(wordToMatch, cityData) {
-      return cityData.filter(place => {
-        // const regex = new RegExp(wordToMatch, 'gi');
-        // return place.city.match(wordToMatch) || place.state.match(wordToMatch)
-        return place.city.indexOf(wordToMatch) != -1 || place.state.indexOf(wordToMatch) != -1;
-      });
-    }
-
-    function displayMatches() {
-      const matchArray = findMatches(this.value, cityData);
-      suggestions.textContent = '';
-      matchArray.forEach(data => {
-        suggestions.innerHTML +=
-          `<li class="place">
-          ${data.city}, ${data.state}
-          <span>${data.population}</span>
-        </li>`;
-      });
-    };
-
-    const search = document.querySelector('.search');
-    const suggestions = document.querySelector('.suggestions');
-
-    search.addEventListener('input', displayMatches);
-    // search.addEventListener('keyup', displayMatches);
 
   </script>
 </body>
