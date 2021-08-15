@@ -53,7 +53,7 @@
           const regex = new RegExp(this.value, 'gi');
           const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
           const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
-          const population = place.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          const population = place.population.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
           const html =
           `<li>
             <span>${cityName}, ${stateName}</span>
