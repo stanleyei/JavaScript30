@@ -39,27 +39,16 @@
       search.addEventListener('input', function () {
         const matchArray = cityData.filter(place => place.city.indexOf(this.value) != -1 || place.state.indexOf(this.value) != -1);
         suggestions.textContent = '';
-        console.log(matchArray);
-        const html = matchArray.forEach(place => {
-          const city = place.city;
-          const state = place.state;
-          const population = place.population;
-          return
+        const matchHtml = matchArray.map(place => {
+          const html =           
               `<li>
-                <span>${city}, ${state}</span>
-                <span>${population}</span>
+                <span>${place.city}, ${place.state}</span>
+                <span>${place.population}</span>
               </li>`;
-        });
+          return html;
+        }).toString().replace(/,/g, "");
         
-        console.log(html);
-
-        // matchArray.forEach(data => {
-        //   suggestions.innerHTML +=
-        //     `<li>
-        //       <span>${data.city}, ${data.state}</span>
-        //       <span>${data.population}</span>
-        //     </li>`;
-        // });
+        suggestions.innerHTML = matchHtml;
       });
     };
 
