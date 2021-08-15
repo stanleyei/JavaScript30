@@ -54,12 +54,10 @@
           const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
           const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
           const population = place.population.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          const html =
-          `<li>
-            <span>${cityName}, ${stateName}</span>
-            <span>${population}</span>
-          </li>`;
-          return html;
+          return `<li>
+                    <span>${cityName}, ${stateName}</span>
+                    <span>${population}</span>
+                  </li>`;
         }).join('');
 
         //將matchHtml字串放入suggestions架構中Render至畫面上
