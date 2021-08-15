@@ -35,22 +35,20 @@
         console.error(err.message);
       };
 
-      //宣告並綁定input及suggestions兩個DOM
+      //宣告並綁定input
       const search = document.querySelector('.search');
-      const suggestions = document.querySelector('.suggestions');
-
+      
       //搜尋input的監聽事件
       search.addEventListener('keyup', function () {
 
         //將placeData內的資料藉由input輸入的關鍵字篩選後放入matchArray成為新的陣列
+        const regex = new RegExp(this.value, 'gi');
         const matchArray = placeData.filter(place => {
-          const regex = new RegExp(this.value, 'gi');
           return place.city.match(regex) || place.state.match(regex);
         });
 
         //將matchArray內取出city、state、population的資料組成新陣列並轉化成字串
         const matchHtml = matchArray.map(place => {
-          const regex = new RegExp(this.value, 'gi');
           const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
           const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
           const population = place.population.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -61,6 +59,7 @@
         }).join('');
 
         //將matchHtml字串放入suggestions架構中Render至畫面上
+        const suggestions = document.querySelector('.suggestions');
         suggestions.innerHTML = matchHtml;
       });
 
