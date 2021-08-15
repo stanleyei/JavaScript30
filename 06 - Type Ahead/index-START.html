@@ -40,7 +40,7 @@
       const suggestions = document.querySelector('.suggestions');
 
       //搜尋input的監聽事件
-      search.addEventListener('change', function () {
+      search.addEventListener('keyup', function () {
 
         //將placeData內的資料藉由input輸入的關鍵字篩選後放入matchArray成為新的陣列
         const matchArray = placeData.filter(place => {
