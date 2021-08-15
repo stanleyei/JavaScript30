@@ -40,7 +40,7 @@
       const suggestions = document.querySelector('.suggestions');
 
       //搜尋input的監聽事件
-      search.addEventListener('input', function () {
+      search.addEventListener('change', function () {
 
         //將placeData內的資料藉由input輸入的關鍵字篩選後放入matchArray成為新的陣列
         const matchArray = placeData.filter(place => {
@@ -63,6 +63,7 @@
         //將matchHtml字串放入suggestions架構中Render至畫面上
         suggestions.innerHTML = matchHtml;
       });
+
     })();
 
   </script>
