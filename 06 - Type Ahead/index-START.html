@@ -23,7 +23,7 @@
   <script>
     const getCityData = async () => {
       let cityData = [];
-      
+
       try {
         const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
         const response = await fetch(endpoint);
@@ -38,15 +38,13 @@
 
       search.addEventListener('input', function () {
         const matchArray = cityData.filter(place => place.city.indexOf(this.value) != -1 || place.state.indexOf(this.value) != -1);
-        const matchHtml = matchArray.map(place => {
-          const html =           
-              `<li>
-                <span>${place.city}, ${place.state}</span>
-                <span>${place.population}</span>
-              </li>`;
-          return html;
-        }).toString().replace(/,/g, "");
-        
+        const matchHtml = matchArray.map(place =>
+          `<li>
+            <span>${place.city}, ${place.state}</span>
+            <span>${place.population}</span>
+          </li>`
+        ).toString().replace(/,/g, "");
+
         suggestions.innerHTML = matchHtml;
       });
 
