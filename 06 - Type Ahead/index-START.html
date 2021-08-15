@@ -37,7 +37,12 @@
       const suggestions = document.querySelector('.suggestions');
 
       search.addEventListener('input', function () {
-        const matchArray = cityData.filter(place => place.city.indexOf(this.value) != -1 || place.state.indexOf(this.value) != -1);
+
+        const matchArray = cityData.filter(place => {
+          const regex = new RegExp(this.value, 'gi');
+          return place.city.match(regex) || place.state.match(regex);
+        });
+
         const matchHtml = matchArray.map(place =>
           `<li>
             <span>${place.city}, ${place.state}</span>
@@ -46,7 +51,9 @@
         ).toString().replace(/,/g, "");
 
         suggestions.innerHTML = matchHtml;
+        
       });
+
     })();
 
   </script>
