@@ -22,7 +22,8 @@
   </form>
   <script>
     const getCityData = async () => {
-      let cityData;
+      let cityData = [];
+      
       try {
         const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
         const response = await fetch(endpoint);
@@ -31,14 +32,12 @@
       } catch (err) {
         console.error(err.message);
       };
-      console.log(cityData);
 
       const search = document.querySelector('.search');
       const suggestions = document.querySelector('.suggestions');
 
       search.addEventListener('input', function () {
         const matchArray = cityData.filter(place => place.city.indexOf(this.value) != -1 || place.state.indexOf(this.value) != -1);
-        suggestions.textContent = '';
         const matchHtml = matchArray.map(place => {
           const html =           
               `<li>
@@ -50,6 +49,7 @@
         
         suggestions.innerHTML = matchHtml;
       });
+
     };
 
     getCityData();
