@@ -97,22 +97,20 @@
   </div>
 
   <script>
+    const inputs = document.querySelectorAll('input[type="checkbox"]');
+    let lastChecked = -1;
 
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-      input.addEventListener('input', function () {
-        if (this.checked) {
-          window.addEventListener('keydown', e => {
-            if (e.shiftKey ) {
-              console.log(this);
-            };
-          });
+    inputs.forEach((input, index) => {
+      input.addEventListener('click', function (e) {
+        if(e.shiftKey && this.checked) {
+          const start = lastChecked > index ? index : lastChecked;
+          const end = lastChecked > index ? lastChecked : index;
+          [...inputs].slice(start + 1, end).forEach(item => item.checked = true);
         };
+
+        lastChecked = index;
       })
     });
-
-
-
   </script>
 
 </body>
